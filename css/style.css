@@ -1,0 +1,82 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container{
+    margin: 60px auto;
+    width: 500px;
+    /* background-color: red; */
+}
+.app-content input{
+    width: 100%;
+    height: 30px;
+    border-radius: 5px;
+}
+.app-content div.list{
+    margin-top: 2.5px;
+    width: 100%;
+    /* background-color: rgb(150, 204, 150); */
+    list-style: none;
+    line-height: 2;
+}
+.list-item:nth-child(even){
+    border-radius: 5px;
+    margin-top: 2.5px;
+    background-color: rgb(136, 194, 194);
+}
+.list-item:nth-child(odd){
+    border-radius: 5px;
+    background-color: rgb(218, 131, 131);
+}
+
+.list-item{
+    display: flex;
+    justify-content: space-between;
+}
+
+.success{
+    background-color: green;
+}
+.error{
+    background-color: red;
+}
+.notify{
+    line-height: 1.1;
+    /* background-color: red; */
+    padding: 10px 2px;
+    font-size: 20px;
+    border-radius: 5px;
+    transition: all 0.3 ease-in-out;
+    margin-bottom: 5px;
+}
+.collection{
+    /* background-color: rgb(153, 211, 153); */
+    list-style: none;
+}
+.collection li{
+    margin: 20px 0;
+}
+hr{
+    margin-bottom: 10px;
+}
+.clear{
+    width: 70px;
+    padding: 5px;
+}
+.btn{
+    width: 70px;
+    padding: 5px;
+    margin-top: 10px;
+}
+.sec{
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 5px;
+    cursor: pointer;
+}
+
+.update{
+    justify-content: flex-end;
+}
