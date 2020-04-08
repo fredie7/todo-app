@@ -59,6 +59,7 @@ const deleteTodo = e=> {
 }
 
 const clearTodos = ()=> {
+    const collection = document.querySelector('.collection')
     while (collection.firstChild) {
         collection.removeChild(collection.firstChild)
     }
