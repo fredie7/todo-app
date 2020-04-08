@@ -1,68 +1,80 @@
 'use strict'
-const input = document.querySelector('input')
-const listItem = document.querySelector('li')
-const btn = document.querySelector('.btn')
-const notification = document.querySelector('.notify')
-const list = document.querySelector('.collection')
-const clearTodos = document.querySelector('.clear')
-const form = document.querySelector('form')
-form.addEventListener('submit', addToDo)
 
-function addToDo(e) {
-    if (input.value === '') {
-        notification.textContent = 'enter a to-do item'
-        notification.style.backgroundColor = 'red'
+class Todo {
+    constructor(nextTodo) {
+        this.nextTodo = nextTodo
+    }
+}
+
+class UI {
+    showAlert() {
+        const div = document.createElement('div')
+        div.className = 'error'
+        div.appendChild(document.createTextNode('enter you next todo'))
+        const notification = document.querySelector('.notify')
+        notification.appendChild(div)
         setTimeout(() => {
-            notification.textContent = ''
-            notification.style.backgroundColor = ''
+            notification.remove()
         }, 1500);
-    } else {
+        document.querySelector('.collection').firstChild.textContent = ''
+    }
+
+    addNextTodo(todo) {
+        const collection = document.querySelector('.collection')
         const li = document.createElement('li')
-        li.appendChild(document.createTextNode(input.value))
-        li.style.background = 'grey'
-        li.classList.add('sec')
-        const link = document.createElement('a')
-        link.className = 'delete-item'
-        link.innerHTML = `<button>Delete</button>`
-        
-        const updateLink = document.createElement('a')
-        updateLink.className = 'update-item'
-        updateLink.innerHTML = `<button>Update</button>`
-        
-        li.appendChild(link)
-        li.appendChild(updateLink)
-        list.appendChild(li)
-        console.log(li)
-        input.value = ''
-            
+        li.classList.add('list-item')
+        const p = document.createElement('p')
+        p.appendChild(document.createTextNode(todo.nextTodo))
+        const div = document.createElement('div')
+        div.className = 'list-btn'
+        const btnUpdate = document.createElement('button')
+        const btnDelete = document.createElement('button')
+        btnUpdate.appendChild(document.createTextNode('update'))
+        btnUpdate.className = 'update-btn'
+        btnDelete.appendChild(document.createTextNode('delete'))
+        btnDelete.className = 'delete-btn'
+        div.appendChild(btnUpdate)
+        div.insertAdjacentElement("beforeend",btnDelete)
+        li.appendChild(p)
+        li.insertAdjacentElement("beforeend",div)
+        collection.appendChild(li)
+        document.querySelector('input').value = ''
     }
+
+   
+}
+
+const updateTodo = e => {
+    if (e.target.classList.contains('update-btn')) {
+        e.target.parentElement.parentElement.remove()
+        const input = e.target.parentElement.previousElementSibling.textContent
+        document.querySelector('input').value = input
+    }
+}
+
+const deleteTodo = e=> {
+    if (e.target.classList.contains('delete-btn')) {
+        e.target.parentElement.parentElement.remove()
+    }
+}
+
+const clearTodos = ()=> {
+    while (collection.firstChild) {
+        collection.removeChild(collection.firstChild)
+    }
+}
+document.querySelector('.collection').addEventListener('click', updateTodo)
+document.querySelector('.collection').addEventListener('click', deleteTodo)
+document.querySelector('.clear').addEventListener('click', clearTodos)
+
+    
+document.querySelector('form').addEventListener('submit', e => {
     e.preventDefault()
-}
-
-list.addEventListener('click', removeItem)
-function removeItem(e) {
-    if (e.target.parentElement.classList.contains('delete-item')) {
-        const deleteItem = e.target
-        if (deleteItem) {
-            e.target.parentElement.parentElement.remove()
-        }
+    const nextTodo = document.querySelector('input').value
+    const todo = new Todo(nextTodo)
+    const ui = new UI()
+    if (nextTodo === '') {
+        ui.showAlert()
     }
-}
-
-list.addEventListener('click', updateItem)
-function updateItem(e) {
-    if (e.target.parentElement.classList.contains('update-item')) {
-        const updateItem = e.target
-        if (updateItem) {
-            e.target.parentElement.parentElement.remove()
-            input.value = e.target.parentElement.parentElement.firstChild.textContent
-        }
-    }
-}
-
-clearTodos.addEventListener('click', deleteAll)
-function deleteAll() {
-    while (list.firstChild) {
-        list.removeChild(list.firstChild)
-    }
-}
+    ui.addNextTodo(todo)
+})

@@ -26,10 +26,6 @@
     margin-top: 2.5px;
     background-color: rgb(136, 194, 194);
 }
-.list-item:nth-child(odd){
-    border-radius: 5px;
-    background-color: rgb(218, 131, 131);
-}
 
 .list-item{
     display: flex;
@@ -40,7 +36,7 @@
     background-color: green;
 }
 .error{
-    background-color: red;
+    background-color: rgb(187, 59, 59);
 }
 .notify{
     line-height: 1.1;
@@ -70,13 +66,13 @@ hr{
     padding: 5px;
     margin-top: 10px;
 }
-.sec{
-    display: flex;
-    justify-content: space-between;
-    padding: 5px 5px;
-    cursor: pointer;
-}
 
-.update{
-    justify-content: flex-end;
+
+.list-item{
+    display: flex;
+    background-color: rgb(164, 209, 209);
+    padding: 5px 2px;
+}
+.update-btn{
+    margin-right: 5px;
 }
